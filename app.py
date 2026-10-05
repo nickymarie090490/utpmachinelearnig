@@ -1,5 +1,7 @@
 from pathlib import Path
 import json
+import io
+import hashlib
 import joblib
 import numpy as np
 import pandas as pd
@@ -11,12 +13,23 @@ st.title('💬 ¿De qué habla esta reseña?')
 st.write('Detecta limpieza, ruido, ubicación, anfitrión y precio. Una reseña puede mencionar varios temas.')
 @st.cache_resource
 def cargar(nombre):
+ if nombre == 'MLP' and (P/'modelos/MLP.sha256').exists():
+  raw=b''.join(f.read_bytes() for f in sorted((P/'modelos').glob('MLP.part*')))
+  expected=(P/'modelos/MLP.sha256').read_text().strip()
+  if hashlib.sha256(raw).hexdigest()!=expected:
+   raise ValueError('El archivo de la red neuronal está incompleto. Revisa los archivos modelos/MLP.part*.')
+  return joblib.load(io.BytesIO(raw))
  return joblib.load(P/(nombre+'.joblib'))
 @st.cache_data
 def tabla(nombre): return pd.read_csv(P/'datos'/nombre,keep_default_na=False)
-model_name=st.sidebar.selectbox('Modelo',['LogisticRegression','LinearSVC','MLP'])
+available=[name for name in ['LogisticRegression','LinearSVC','MLP'] if (P/(name+'.joblib')).exists() or (name=='MLP' and (P/'modelos/MLP.sha256').exists() and len(list((P/'modelos').glob('MLP.part*')))==10)]
+if not available:
+ st.error('No hay modelos disponibles en este despliegue.'); st.stop()
+model_name=st.sidebar.selectbox('Modelo',available)
+if 'MLP' not in available:
+ st.sidebar.info('La red neuronal está temporalmente fuera de servicio. Puedes utilizar los dos modelos clásicos.')
 st.sidebar.caption('MLP es una red neuronal. Los otros dos son modelos clásicos.')
-if not (P/(model_name+'.joblib')).exists():
+if not (P/(model_name+'.joblib')).exists() and not (model_name == 'MLP' and (P/'modelos/MLP.sha256').exists()):
  st.error('Faltan los modelos. Ejecuta python entrenar.py dentro de la carpeta del proyecto.');st.stop()
 model=cargar(model_name)
 t1,t2,t3,t4=st.tabs(['Una reseña','Varias reseñas','Resultados','Cómo funciona'])
