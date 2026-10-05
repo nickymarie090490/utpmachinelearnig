@@ -231,7 +231,7 @@ with t5:
 with t6:
     e = json.loads((P/'datos/evidencia_sobreajuste.json').read_text())
     st.subheader('Nivel 2 · Red neuronal en Keras')
-    st.write('El texto se convierte en una representación densa antes de entrar al perceptrón multicapa. Esta es la red entrenada que utiliza la aplicación.')
+    st.write('El texto se convierte en una representación densa antes de entrar al perceptrón multicapa. Estos son los resultados de la red entrenada para este proyecto. Su disponibilidad para analizar reseñas aparece en el selector de modelos.')
     st.markdown('**TF-IDF → TruncatedSVD (64 componentes) + longitud → 65 entradas → Dense (64, ReLU) → Dropout (20%) → Dense (5, sigmoid).**')
     st.table(pd.DataFrame({'Elemento': ['Capas Dense', 'Capa oculta', 'Regularización', 'Salida', 'Optimizador', 'Pérdida', 'Batch', 'Parada anticipada'], 'Configuración': ['2: una oculta y una de salida', '64 unidades · activación ReLU', 'Dropout 0.20', '5 unidades · sigmoid · umbral 0.5', 'Adam · learning rate 0.001', 'Entropía cruzada binaria', '128 reseñas', 'val_loss · patience 6 · min_delta 0.0001 · restaurar mejores pesos']}))
     st.subheader('Pérdida durante entrenamiento y validación')
