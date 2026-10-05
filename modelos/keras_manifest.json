@@ -1,0 +1,47 @@
+{
+  "tensorflow": "2.21.0",
+  "preparacion_parts": [
+    {
+      "archivo": "keras_pre.part00",
+      "bytes": 500000,
+      "sha256": "ac49b6105a51e28020869bfb18eab639f3b5be9e8c57b6430975a6c4541d3148"
+    },
+    {
+      "archivo": "keras_pre.part01",
+      "bytes": 500000,
+      "sha256": "d6d9836ee5c8302a5ba0ded1b9eb3b50f1b4f9dc06464e5f5f5afca86f33d290"
+    },
+    {
+      "archivo": "keras_pre.part02",
+      "bytes": 500000,
+      "sha256": "d83d90d4eb2cfa603d041303b42eb7c7ac869e2c501154d15213b8c0774d3588"
+    },
+    {
+      "archivo": "keras_pre.part03",
+      "bytes": 500000,
+      "sha256": "900fbf59646c7dcbdeeb173fb470ee8e94424680dea1c3a0c11518c1cbb8b82d"
+    },
+    {
+      "archivo": "keras_pre.part04",
+      "bytes": 500000,
+      "sha256": "656f28ab604f9c96c727666ace54ee3a2ac809746111c49fc30851e789be6ea7"
+    },
+    {
+      "archivo": "keras_pre.part05",
+      "bytes": 500000,
+      "sha256": "79b4cbd6e54625c27666d16f6a18f6084dc032bb4aa7f073974e3c84df191557"
+    },
+    {
+      "archivo": "keras_pre.part06",
+      "bytes": 500000,
+      "sha256": "657b1e9e05ff179a6d71131080d807faa04c8bcf00061c13f81539f5f2926384"
+    },
+    {
+      "archivo": "keras_pre.part07",
+      "bytes": 451403,
+      "sha256": "3a620af8d2820796a65ed5ed2e0684a2b021a4e6448217a3f29f8087507d341e"
+    }
+  ],
+  "preparacion_sha256": "d0f787138d5820d47002857e3d3638bf49385b09228708d7dbc925035ce9316a",
+  "red_sha256": "02c8a1878873de415db9049ff942ede1002db9c36c7af213ca4c67b0fcafc9c1"
+}

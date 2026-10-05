@@ -6,7 +6,7 @@ Clasifica reseñas en limpieza, ruido, ubicación, anfitrión y precio. Incluye 
 
 ## Estado de la publicación
 
-El código implementa Nivel 2 y los resultados del entrenamiento están documentados. El archivo Keras y su preparador todavía no están en este repositorio. La interfaz conserva los clásicos y documenta la red entrenada en la pestaña Red Keras. Para reproducirla con tu Excel, utiliza los comandos de entrenamiento.
+El modelo Keras entrenado y su preparador TF-IDF/SVD están incluidos. La interfaz permite seleccionar la red neuronal y consultar su arquitectura, curvas y evidencia en la pestaña Red Keras.
 
 ## Nivel 2 — Keras obligatorio
 
@@ -27,7 +27,7 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-Los clásicos ya están disponibles; abrir la aplicación no los vuelve a entrenar. La red Keras se entrenó y evaluó, pero la publicación de su archivo y preparador está pendiente de autorización específica requerida por la revisión automática. El código, las curvas y las métricas Keras sí están incluidos. No necesitas claves API.
+Los tres modelos están disponibles; abrir la aplicación no los vuelve a entrenar. El modelo Keras, su preparador, las curvas y las métricas están incluidos. No necesitas claves API.
 
 ## Publicar en Streamlit Community Cloud
 
