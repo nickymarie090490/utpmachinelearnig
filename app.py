@@ -42,7 +42,10 @@ with t1:
   else:
    x=pd.DataFrame({'comments':[text]}); pred=model.predict(x)[0]
    topics=[t for t,p in zip(TEMAS,pred) if p]
-   st.success('Temas detectados: '+', '.join(topics)) if topics else st.info('No se detectaron temas con el umbral del modelo.')
+   if topics:
+    st.success('Temas detectados: '+', '.join(topics))
+   else:
+    st.info('No se detectaron temas con el umbral del modelo.')
    out=pd.DataFrame({'Tema':TEMAS,'Detectado':['Sí' if p else 'No' for p in pred]})
    if hasattr(model,'predict_proba'):
     probs=model.predict_proba(x)[0];out['Puntuación (0–1)']=probs
