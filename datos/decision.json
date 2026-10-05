@@ -1,0 +1,6 @@
+{
+  "modelo": "LogisticRegression",
+  "razon": "Salida probabilística no calibrada, coeficientes interpretables, modelo pequeño y entrenamiento rápido. La selección final considera los resultados humanos sin reajustar parámetros.",
+  "umbral": 0.5,
+  "probabilidades_calibradas": false
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "componente": 8,
+    "terminos_cargas_absolutas": "limpi, orden, comod, lug, anfitrion, tranquil",
+    "caida_Macro_F1": 0.06378855299350494
+  },
+  {
+    "componente": 1,
+    "terminos_cargas_absolutas": "buen, excelent, ubic, departament, comod, lug",
+    "caida_Macro_F1": 0.039152601039362724
+  },
+  {
+    "componente": 6,
+    "terminos_cargas_absolutas": "lug, departament, comod, excelent, anfitrion, limpi",
+    "caida_Macro_F1": 0.0356207575507671
+  },
+  {
+    "componente": 43,
+    "terminos_cargas_absolutas": "preci, calid, relacion, siempr, atent, equip",
+    "caida_Macro_F1": 0.027990284352742756
+  }
+]

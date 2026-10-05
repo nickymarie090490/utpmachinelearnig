@@ -2,5 +2,32 @@
   "originales": 690112,
   "manuales": 100,
   "entrenamiento": 25000,
-  "elegibles": 600108
+  "elegibles": 600108,
+  "exclusiones": {
+    "alojamiento_manual": 13555,
+    "texto_manual": 21748,
+    "vacio_sin_letras": 601,
+    "duplicado_normalizado": 54100
+  },
+  "fuente_archivo": "Etiquetados.xlsx",
+  "sha256_excel": "b6b561fc6334a9b2195a45e4dacebd5804983c3c7baa4a7d22cafce49a179e4a",
+  "ciudad_segun_notebook": "Santiago",
+  "fecha_dump": null,
+  "fecha_primera_resena": "2010-11-13",
+  "fecha_ultima_resena": "2026-07-01",
+  "columnas_originales": [
+    "listing_id",
+    "review_id",
+    "date",
+    "reviewer_id",
+    "reviewer_name",
+    "comments",
+    "seleccion_manual",
+    "limpieza",
+    "ruido",
+    "ubicacion",
+    "anfitrion",
+    "precio"
+  ],
+  "nota": "La fecha de reseña y la modificación del Excel no acreditan la fecha del dump. Los textos e identificadores de reseñadores no se publican."
 }

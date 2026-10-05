@@ -1,0 +1,13 @@
+modelo,validador,pliegue,Macro F1 automático,grupos_compartidos
+LogisticRegression,KFold ingenuo,1,0.9129012691413669,2680
+LogisticRegression,KFold ingenuo,2,0.9240631942874893,2710
+LogisticRegression,KFold ingenuo,3,0.9065275559913765,2680
+LogisticRegression,GroupKFold correcto,1,0.9181582128326811,0
+LogisticRegression,GroupKFold correcto,2,0.912471721944032,0
+LogisticRegression,GroupKFold correcto,3,0.9212412835288095,0
+LinearSVC,KFold ingenuo,1,0.960256188577896,2680
+LinearSVC,KFold ingenuo,2,0.9635671239933897,2710
+LinearSVC,KFold ingenuo,3,0.9578622049432888,2680
+LinearSVC,GroupKFold correcto,1,0.9575905598642048,0
+LinearSVC,GroupKFold correcto,2,0.9605450833495184,0
+LinearSVC,GroupKFold correcto,3,0.9635590020889447,0

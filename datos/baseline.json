@@ -1,0 +1,13 @@
+{
+  "modelo": "Mayoritaria por etiqueta",
+  "etiquetas": [
+    0,
+    0,
+    1,
+    0,
+    0
+  ],
+  "Macro F1 manual": 0.14025974025974025,
+  "Micro F1 manual": 0.3898916967509025,
+  "Coincidencia completa": 0.02
+}

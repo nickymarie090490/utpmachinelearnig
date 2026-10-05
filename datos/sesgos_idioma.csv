@@ -1,0 +1,13 @@
+idioma,modelo,reseñas,grupos,temas_con_positivos,Macro F1,F1 temas presentes
+en,LogisticRegression,16,16,5,0.8415140415140415,0.8415140415140415
+en,LinearSVC,16,16,5,0.9142857142857144,0.9142857142857144
+en,MLP,16,16,5,0.6777777777777778,0.6777777777777778
+es,LogisticRegression,67,60,5,0.9314234528042123,0.9314234528042123
+es,LinearSVC,67,60,5,0.9419290281088036,0.9419290281088036
+es,MLP,67,60,5,0.8099019238548874,0.8099019238548874
+indeterminado,LogisticRegression,16,15,0,,
+indeterminado,LinearSVC,16,15,0,,
+indeterminado,MLP,16,15,0,,
+pt,LogisticRegression,1,1,0,,
+pt,LinearSVC,1,1,0,,
+pt,MLP,1,1,0,,

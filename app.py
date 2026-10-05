@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 from texto import TEMAS
+from inferencia import analizar_modelo, explicar_local, validar_textos
 
 P = Path(__file__).parent
 NOMBRES = {'limpieza': 'Limpieza', 'ruido': 'Ruido', 'ubicacion': 'Ubicación', 'anfitrion': 'Anfitrión', 'precio': 'Precio'}
@@ -39,10 +40,7 @@ def tabla(nombre):
 @st.cache_data
 def analizar(nombre, textos):
     modelo = cargar(nombre)
-    x = pd.DataFrame({'comments': list(textos)})
-    pred = modelo.predict(x)
-    scores = modelo.predict_proba(x) if hasattr(modelo, 'predict_proba') else None
-    return pred, scores
+    return analizar_modelo(modelo, textos)
 
 available = [n for n in MODELOS if (n != 'MLP' and (P/(n+'.joblib')).exists()) or (n == 'MLP' and (P/'modelos/keras_manifest.json').exists() and (P/'modelos/red_keras.keras').exists())]
 if not available:
@@ -70,11 +68,11 @@ with t1:
         text = st.text_area('Escribe una reseña', value='El apartamento estaba limpio y cerca del metro, pero había mucho ruido.', height=125, max_chars=15000)
         submit = st.form_submit_button('Analizar reseña', type='primary')
     if submit:
-        if text.strip():
+        if text.strip() and any(c.isalpha() for c in text):
             st.session_state['ultima_resena'] = text.strip()
         else:
             st.session_state.pop('ultima_resena', None)
-            st.warning('Escribe una reseña antes de analizar.')
+            st.warning('Escribe una reseña con al menos una letra antes de analizar.')
     if 'ultima_resena' in st.session_state:
         reviewed = st.session_state['ultima_resena']
         pred, scores = analizar(model_name, (reviewed,))
@@ -111,6 +109,11 @@ with t1:
             if probs is not None:
                 out['Puntuación del modelo'] = probs*100
             st.dataframe(out, hide_index=True, width='stretch', column_config={'Puntuación del modelo': st.column_config.NumberColumn(format='%.2f%%')})
+        with st.expander('¿En qué se apoya esta predicción?', expanded=True):
+            explanation = explicar_local(cargar(model_name), reviewed, model_name)
+            explanation['Tema'] = explanation.Tema.map(NOMBRES)
+            st.dataframe(explanation, hide_index=True, width='stretch')
+            st.caption('Un efecto positivo favorece el tema; uno negativo lo reduce. En clásicos se muestran contribuciones lineales, con raíces de palabras. En Keras se mide el cambio al quitar términos: una aproximación local, no una explicación causal. La longitud también puede influir.')
         st.caption('Si editas el texto, pulsa Analizar reseña para actualizarlo. Cambiar de modelo actualiza este resultado sobre la última reseña analizada.')
     else:
         with st.container(border=True):
@@ -133,6 +136,7 @@ with t2:
                 raise ValueError('Una reseña supera los 15.000 caracteres.')
             if d.comments.astype(str).str.strip().eq('').any():
                 raise ValueError('Hay reseñas vacías. Completa o elimina esas filas antes de subir el archivo.')
+            validar_textos(d.comments.astype(str))
             st.session_state['archivo_resenas'] = d
         except (ValueError, pd.errors.ParserError, UnicodeDecodeError) as e:
             st.session_state.pop('archivo_resenas', None)
@@ -172,7 +176,15 @@ with t3:
             st.markdown('**'+MODELOS[row['modelo']]+'**')
             st.metric('Macro F1', f"{float(row['Macro F1 manual']):.3f}")
             st.caption(f"Todas las etiquetas correctas en {float(row['Coincidencia completa']):.0%} de las reseñas evaluadas.")
-    st.info('Macro F1 combina la capacidad de detectar temas reales y evitar detecciones incorrectas, dando el mismo peso a los cinco temas. Va de 0 a 1; cuanto más alto, mejor. Un F1 de 0,926 no significa 92,6% de reseñas completamente correctas.')
+    st.info('Macro F1 combina la capacidad de detectar temas reales y evitar detecciones incorrectas, dando el mismo peso a los cinco temas. Va de 0 a 1; cuanto más alto, mejor. Un F1 de 0,934 no significa 92,6% de reseñas completamente correctas.')
+    st.dataframe(metrics[['modelo','Macro F1 manual','entrenamiento_s','inferencia_ms_resena','tamano_MB']], hide_index=True, width='stretch')
+    st.caption('Costos de búsqueda y entrenamiento en CPU; inferencia por reseña en lotes de 100, mediana de 7 repeticiones sin carga inicial. Probabilidades sin calibración. Modelo elegido para producción: regresión logística.')
+    with st.expander('Curva de aprendizaje y partición honesta'):
+        st.image(str(P/'datos/curva_aprendizaje.png'))
+        st.dataframe(tabla('particiones.csv'),hide_index=True)
+    with st.expander('Matrices de confusión y diferencias por idioma'):
+        st.image(str(P/'datos/matrices_confusion.png'))
+        st.dataframe(tabla('sesgos_idioma.csv'),hide_index=True)
     comparison = metrics[['modelo', 'Macro F1 manual', 'Micro F1 manual']].copy()
     comparison['Modelo'] = comparison.modelo.map(MODELOS)
     st.bar_chart(comparison.set_index('Modelo')[['Macro F1 manual', 'Micro F1 manual']], horizontal=True)
@@ -184,10 +196,10 @@ with t3:
     st.dataframe(detail[['Tema', 'Precisión', 'Cobertura', 'F1 por tema']], hide_index=True, width='stretch', column_config={c: st.column_config.NumberColumn(format='%.3f') for c in ['Precisión', 'Cobertura', 'F1 por tema']})
     with st.expander('Entender las métricas'):
         st.markdown('**Precisión:** de las veces que el modelo marcó un tema, cuántas fueron correctas.\n\n**Cobertura (recall):** de las menciones reales de un tema, cuántas encontró.\n\n**F1:** combina precisión y cobertura.\n\n**Micro F1:** reúne las decisiones de todos los temas; los temas más frecuentes influyen más.\n\n**Todas las etiquetas correctas:** la predicción completa coincide con las cinco etiquetas humanas de una reseña.')
-    st.caption('La muestra humana es pequeña y dirigida. No representa necesariamente todas las reseñas ni todos los idiomas.')
+    st.caption('La muestra humana es pequeña, dirigida y fue consultada en versiones previas. Esta evaluación no es completamente ciega ni representa necesariamente todos los idiomas.')
     with st.expander('Ver detalles del entrenamiento de la red'):
         st.dataframe(tabla('arquitecturas.csv'), hide_index=True, width='stretch')
-        st.write('Se probaron arquitecturas Keras (64) con dropout 20% y (128, 64) con dropout 30%. La elección usó validación automática, antes de evaluar las etiquetas humanas. Ambas aplicaron early stopping. Consulta Red Keras para ver las curvas y la evidencia.')
+        st.write('Se compararon 64, 128 y 256 componentes SVD; capas ocultas de 64 o 128/64 unidades. La selección usó Macro F1 en validación automática. Consulta Red Keras para ver las curvas y la evidencia.')
 
 with t4:
     st.subheader('Guía de uso')
@@ -223,7 +235,7 @@ with t5:
     c1.metric('Reseñas en el Excel', f"{source['originales']:,}")
     c2.metric('Muestra de entrenamiento automático', f"{source['entrenamiento']:,}")
     c3.metric('Reseñas con etiquetas humanas', str(source['manuales']))
-    st.markdown('**1. Preparar los datos.** Se eliminan textos repetidos y sin letras. Los alojamientos del conjunto humano y las copias de sus textos se excluyen del entrenamiento.\n\n**2. Enseñar a los modelos.** Reglas de palabras crean etiquetas automáticas imperfectas. TF-IDF convierte los textos en números y se añade su longitud.\n\n**3. Comparar alternativas.** Los modelos clásicos usan validación de tres pliegues por alojamiento. La red reduce el texto a 64 componentes SVD y compara dos arquitecturas con una validación separada por alojamiento.\n\n**4. Evaluar.** Las 100 reseñas humanas se usan al final. Los umbrales no se ajustan después de ver sus etiquetas.')
+    st.markdown('**1. Preparar los datos.** Se eliminan textos repetidos y sin letras. Los alojamientos del conjunto humano y las copias de sus textos se excluyen del entrenamiento.\n\n**2. Enseñar a los modelos.** Reglas de palabras crean etiquetas automáticas imperfectas. TF-IDF convierte los textos en números y se añade su longitud.\n\n**3. Comparar alternativas.** Los modelos clásicos usan validación de tres pliegues por alojamiento. La red compara 64, 128 y 256 componentes SVD y usa una pérdida ponderada para las etiquetas escasas con una validación separada por alojamiento.\n\n**4. Evaluar.** Las 100 reseñas humanas se usan al final de esta ejecución. Ya se consultaron en versiones anteriores; no son un test completamente ciego. Los umbrales no se ajustan con ellas.')
     st.info('La red está implementada en Keras: TF-IDF reducido con TruncatedSVD, capas Dense, dropout y early stopping. La pestaña Red Keras documenta arquitectura y resultados reales. Las métricas se actualizaron con esta ejecución.')
     with st.expander('Ver configuración del experimento'):
         st.json(method)
@@ -232,8 +244,8 @@ with t6:
     e = json.loads((P/'datos/evidencia_sobreajuste.json').read_text())
     st.subheader('Nivel 2 · Red neuronal en Keras')
     st.write('El texto se convierte en una representación densa antes de entrar al perceptrón multicapa. Estos son los resultados de la red entrenada para este proyecto. Su disponibilidad para analizar reseñas aparece en el selector de modelos.')
-    st.markdown('**TF-IDF → TruncatedSVD (64 componentes) + longitud → 65 entradas → Dense (64, ReLU) → Dropout (20%) → Dense (5, sigmoid).**')
-    st.table(pd.DataFrame({'Elemento': ['Capas Dense', 'Capa oculta', 'Regularización', 'Salida', 'Optimizador', 'Pérdida', 'Batch', 'Parada anticipada'], 'Configuración': ['2: una oculta y una de salida', '64 unidades · activación ReLU', 'Dropout 0.20', '5 unidades · sigmoid · umbral 0.5', 'Adam · learning rate 0.001', 'Entropía cruzada binaria', '128 reseñas', 'val_loss · patience 6 · min_delta 0.0001 · restaurar mejores pesos']}))
+    st.write(f"TF-IDF → TruncatedSVD ({e['svd_componentes']} componentes) + longitud → {e['entrada_dimensiones']} entradas.")
+    st.table(pd.DataFrame({'Elemento': ['Capas Dense', 'Capas ocultas', 'Regularización', 'Salida', 'Optimizador', 'Pérdida', 'Batch', 'Parada anticipada'], 'Configuración': [str(e['capas_densas']), str(e['arquitectura_oculta'])+' · ReLU', 'Dropout '+str(e['dropout']), '5 · sigmoid · umbral 0.5', 'Adam · 0.001', e['loss'], '128 reseñas', 'val_loss · paciencia 6 · restaurar pesos']}))
     st.subheader('Pérdida durante entrenamiento y validación')
     curve = tabla('perdida_keras.csv')
     st.line_chart(curve.set_index('epoca')[['Entrenamiento', 'Validación']], x_label='Época', y_label='Pérdida (menor es mejor)')
@@ -247,9 +259,9 @@ with t6:
     gap0 = e['loss_val_sin_control']-e['loss_train_sin_control']
     reduction = (e['loss_val_sin_control']-e['loss_val_restaurada'])/e['loss_val_sin_control']*100
     st.table(pd.DataFrame({'Medida': ['Pérdida de entrenamiento', 'Pérdida de validación', 'Brecha validación − entrenamiento'], 'Dropout + early stopping': [e['loss_train_restaurada'], e['loss_val_restaurada'], gap], 'Sin ambos controles (100 épocas)': [e['loss_train_sin_control'], e['loss_val_sin_control'], gap0]}).round(4))
-    st.success(f'En esta ejecución, la pérdida de validación disminuyó {reduction:.1f}% frente a la red sin ambos controles. La brecha también se redujo.')
+    st.info(f'Cambio relativo de BCE de validación frente a la red sin controles: {reduction:.1f}% de reducción. La tabla muestra las cifras reales.')
     st.write('Sin controles, la red ajustó mejor el entrenamiento pero empeoró en validación: evidencia compatible con sobreajuste. La comparación conserva la misma arquitectura, partición, representación, semilla, optimizador y batch. Solo desactiva dropout y early stopping y permite las 100 épocas.')
-    st.info('La evidencia respalda el efecto conjunto sobre la pérdida en esta partición; no aísla cada control. La ablación obtuvo un F1 automático algo mayor: reducir la pérdida no garantiza mejorar el F1 con umbral fijo. Se usó una sola semilla; la muestra humana es pequeña y dirigida.')
+    st.info('La evidencia respalda el efecto conjunto sobre la pérdida en esta partición; no aísla cada control. La pérdida y el F1 miden aspectos diferentes; los resultados de ambos experimentos están documentados. Se usó una sola semilla; la muestra humana es pequeña y dirigida.')
     with st.expander('Comparar ambas curvas de pérdida', expanded=False):
         st.image(str(P/'datos/curvas_perdida.png'), caption='Datos reales de las épocas ejecutadas. La línea vertical indica la época de los pesos restaurados.')
     st.download_button('Descargar informe Nivel 2', (P/'NIVEL_2_KERAS.md').read_text(), 'NIVEL_2_KERAS.md', 'text/markdown')

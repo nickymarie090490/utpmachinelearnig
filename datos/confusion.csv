@@ -1,0 +1,16 @@
+modelo,tema,TN,FP,FN,TP
+LogisticRegression,limpieza,66,1,5,28
+LogisticRegression,ruido,74,1,1,24
+LogisticRegression,ubicacion,45,1,6,48
+LogisticRegression,anfitrion,68,0,3,29
+LogisticRegression,precio,61,6,6,27
+LinearSVC,limpieza,67,0,3,30
+LinearSVC,ruido,75,0,1,24
+LinearSVC,ubicacion,45,1,6,48
+LinearSVC,anfitrion,68,0,4,28
+LinearSVC,precio,65,2,6,27
+MLP,limpieza,65,2,6,27
+MLP,ruido,74,1,16,9
+MLP,ubicacion,44,2,7,47
+MLP,anfitrion,67,1,4,28
+MLP,precio,62,5,13,20

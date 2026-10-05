@@ -1,0 +1,332 @@
+[
+  {
+    "texto": "hay mucho ruido",
+    "modelo": "LogisticRegression",
+    "prediccion": "ruido",
+    "puntuaciones": [
+      0.002797787245117416,
+      0.999999988376156,
+      0.006848355079590687,
+      0.002605801307163328,
+      0.0023064420855297436
+    ]
+  },
+  {
+    "texto": "hay mucho ruido",
+    "modelo": "LinearSVC",
+    "prediccion": "ruido",
+    "puntuaciones": null
+  },
+  {
+    "texto": "hay mucho ruido",
+    "modelo": "MLP",
+    "prediccion": "ruido",
+    "puntuaciones": [
+      0.0005315502057783306,
+      1.0,
+      0.05437149852514267,
+      0.00016848686209414154,
+      2.352885758227785e-06
+    ]
+  },
+  {
+    "texto": "todo estaba muy limpio",
+    "modelo": "LogisticRegression",
+    "prediccion": "limpieza",
+    "puntuaciones": [
+      0.9999999999999993,
+      0.000808104332322662,
+      0.0029352869930064827,
+      0.0027267518225715117,
+      0.000705380572910479
+    ]
+  },
+  {
+    "texto": "todo estaba muy limpio",
+    "modelo": "LinearSVC",
+    "prediccion": "limpieza",
+    "puntuaciones": null
+  },
+  {
+    "texto": "todo estaba muy limpio",
+    "modelo": "MLP",
+    "prediccion": "limpieza",
+    "puntuaciones": [
+      1.0,
+      3.2893132662081825e-09,
+      0.00023281066387426108,
+      4.21296226704726e-06,
+      8.069542256627926e-11
+    ]
+  },
+  {
+    "texto": "el anfitrión respondió rápido",
+    "modelo": "LogisticRegression",
+    "prediccion": "anfitrion",
+    "puntuaciones": [
+      0.003039766760557248,
+      0.0006075256691359275,
+      0.0039123914002037186,
+      0.9999999759496355,
+      0.0011205201028805165
+    ]
+  },
+  {
+    "texto": "el anfitrión respondió rápido",
+    "modelo": "LinearSVC",
+    "prediccion": "anfitrion",
+    "puntuaciones": null
+  },
+  {
+    "texto": "el anfitrión respondió rápido",
+    "modelo": "MLP",
+    "prediccion": "anfitrion",
+    "puntuaciones": [
+      6.843455594207626e-06,
+      2.269802735099802e-06,
+      0.0002822987735271454,
+      1.0,
+      5.1215490515232887e-08
+    ]
+  },
+  {
+    "texto": "está cerca del metro",
+    "modelo": "LogisticRegression",
+    "prediccion": "ubicacion",
+    "puntuaciones": [
+      0.0013428275953686723,
+      0.0006032293008560971,
+      0.9999999946014615,
+      0.0026968512036407845,
+      0.0006902619353516462
+    ]
+  },
+  {
+    "texto": "está cerca del metro",
+    "modelo": "LinearSVC",
+    "prediccion": "ubicacion",
+    "puntuaciones": null
+  },
+  {
+    "texto": "está cerca del metro",
+    "modelo": "MLP",
+    "prediccion": "ubicacion",
+    "puntuaciones": [
+      7.873411050240975e-06,
+      3.267101419623941e-06,
+      1.0,
+      2.2198224542080425e-05,
+      8.626187764093629e-07
+    ]
+  },
+  {
+    "texto": "el precio es caro",
+    "modelo": "LogisticRegression",
+    "prediccion": "precio",
+    "puntuaciones": [
+      0.0017661940856276983,
+      0.0007427595365396224,
+      0.002203877453210473,
+      0.003912911796467278,
+      0.9999999944315894
+    ]
+  },
+  {
+    "texto": "el precio es caro",
+    "modelo": "LinearSVC",
+    "prediccion": "precio",
+    "puntuaciones": null
+  },
+  {
+    "texto": "el precio es caro",
+    "modelo": "MLP",
+    "prediccion": "precio",
+    "puntuaciones": [
+      0.00027110474184155464,
+      0.0001294329558731988,
+      0.0007471192511729896,
+      0.0005234028794802725,
+      0.9999684691429138
+    ]
+  },
+  {
+    "texto": "limpio pero ruidoso",
+    "modelo": "LogisticRegression",
+    "prediccion": "limpieza, ruido",
+    "puntuaciones": [
+      0.9999741789816119,
+      0.9998605394434152,
+      0.007063956172779644,
+      0.004650575953754532,
+      0.00190223749676556
+    ]
+  },
+  {
+    "texto": "limpio pero ruidoso",
+    "modelo": "LinearSVC",
+    "prediccion": "limpieza, ruido",
+    "puntuaciones": null
+  },
+  {
+    "texto": "limpio pero ruidoso",
+    "modelo": "MLP",
+    "prediccion": "limpieza",
+    "puntuaciones": [
+      1.0,
+      0.0023630058858543634,
+      0.0010032232385128736,
+      0.0005645208293572068,
+      0.00011939700198126957
+    ]
+  },
+  {
+    "texto": "El apartamento era silencioso",
+    "modelo": "LogisticRegression",
+    "prediccion": "ruido",
+    "puntuaciones": [
+      0.002204526157166099,
+      0.9999996177756139,
+      0.01530846278720133,
+      0.005157491888362656,
+      0.0016830851032914418
+    ]
+  },
+  {
+    "texto": "El apartamento era silencioso",
+    "modelo": "LinearSVC",
+    "prediccion": "ruido",
+    "puntuaciones": null
+  },
+  {
+    "texto": "El apartamento era silencioso",
+    "modelo": "MLP",
+    "prediccion": "ruido",
+    "puntuaciones": [
+      0.007355968467891216,
+      0.8833815455436707,
+      0.04825739562511444,
+      0.0016481346683576703,
+      0.005333659704774618
+    ]
+  },
+  {
+    "texto": "La vista era preciosa",
+    "modelo": "LogisticRegression",
+    "prediccion": "precio",
+    "puntuaciones": [
+      0.002322743066703129,
+      0.0005370452028775008,
+      0.005385936518095998,
+      0.0034080178233788483,
+      0.9999990558324431
+    ]
+  },
+  {
+    "texto": "La vista era preciosa",
+    "modelo": "LinearSVC",
+    "prediccion": "precio",
+    "puntuaciones": null
+  },
+  {
+    "texto": "La vista era preciosa",
+    "modelo": "MLP",
+    "prediccion": "precio",
+    "puntuaciones": [
+      0.0010593695333227515,
+      1.3145121329216636e-06,
+      0.01606392301619053,
+      0.0003529545501805842,
+      1.0
+    ]
+  },
+  {
+    "texto": "Costanera Center está cerca",
+    "modelo": "LogisticRegression",
+    "prediccion": "ubicacion",
+    "puntuaciones": [
+      0.002325450136794974,
+      0.000334593666240964,
+      0.9660456283526397,
+      0.0032117796856303187,
+      0.0023591245246649996
+    ]
+  },
+  {
+    "texto": "Costanera Center está cerca",
+    "modelo": "LinearSVC",
+    "prediccion": "ubicacion",
+    "puntuaciones": null
+  },
+  {
+    "texto": "Costanera Center está cerca",
+    "modelo": "MLP",
+    "prediccion": "ubicacion",
+    "puntuaciones": [
+      7.754638500045985e-05,
+      1.3875354909487214e-07,
+      0.9999909996986389,
+      6.65807829136611e-06,
+      3.105384166701697e-05
+    ]
+  },
+  {
+    "texto": "The apartment was noisy",
+    "modelo": "LogisticRegression",
+    "prediccion": "ruido",
+    "puntuaciones": [
+      0.0058035837145915745,
+      0.918299401272827,
+      0.023168344942008437,
+      0.005875008278022637,
+      0.020689801520741423
+    ]
+  },
+  {
+    "texto": "The apartment was noisy",
+    "modelo": "LinearSVC",
+    "prediccion": "ruido",
+    "puntuaciones": null
+  },
+  {
+    "texto": "The apartment was noisy",
+    "modelo": "MLP",
+    "prediccion": "ninguno",
+    "puntuaciones": [
+      0.00936437863856554,
+      0.0010865161893889308,
+      0.01291560847312212,
+      0.0011042598634958267,
+      0.05915006250143051
+    ]
+  },
+  {
+    "texto": "Great host and clean apartment",
+    "modelo": "LogisticRegression",
+    "prediccion": "limpieza, anfitrion",
+    "puntuaciones": [
+      0.9996918652392993,
+      0.0015752005078561177,
+      0.04963276695348172,
+      0.9913617845726032,
+      0.006681434741888203
+    ]
+  },
+  {
+    "texto": "Great host and clean apartment",
+    "modelo": "LinearSVC",
+    "prediccion": "limpieza, anfitrion",
+    "puntuaciones": null
+  },
+  {
+    "texto": "Great host and clean apartment",
+    "modelo": "MLP",
+    "prediccion": "limpieza, anfitrion",
+    "puntuaciones": [
+      0.9999997615814209,
+      0.04287819564342499,
+      0.29194948077201843,
+      0.9999982118606567,
+      0.12506332993507385
+    ]
+  }
+]

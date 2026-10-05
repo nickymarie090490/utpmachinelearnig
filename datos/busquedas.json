@@ -1,0 +1,26 @@
+[
+  {
+    "modelo": "LogisticRegression",
+    "F1 CV autom\u00e1tico": 0.9172904061018409,
+    "parametros": {
+      "clasificador__estimator__C": 2,
+      "preparacion__texto__ngram_range": [
+        1,
+        1
+      ]
+    },
+    "F1 validaci\u00f3n autom\u00e1tica": 0.9353458909727888
+  },
+  {
+    "modelo": "LinearSVC",
+    "F1 CV autom\u00e1tico": 0.960564881767556,
+    "parametros": {
+      "clasificador__estimator__C": 2,
+      "preparacion__texto__ngram_range": [
+        1,
+        1
+      ]
+    },
+    "F1 validaci\u00f3n autom\u00e1tica": 0.9711147379404246
+  }
+]

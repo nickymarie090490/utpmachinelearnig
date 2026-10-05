@@ -3,45 +3,180 @@
   "preparacion_parts": [
     {
       "archivo": "keras_pre.part00",
-      "bytes": 500000,
-      "sha256": "ac49b6105a51e28020869bfb18eab639f3b5be9e8c57b6430975a6c4541d3148"
+      "bytes": 350000,
+      "sha256": "182964914171f0b2a6f0f532c917c6097fb2a46ee867eb5bc367b66d6381185a"
     },
     {
       "archivo": "keras_pre.part01",
-      "bytes": 500000,
-      "sha256": "d6d9836ee5c8302a5ba0ded1b9eb3b50f1b4f9dc06464e5f5f5afca86f33d290"
+      "bytes": 350000,
+      "sha256": "4703eb6c7d2214b1dc60ed05cfdab3e9584f1c08fb5ffcb02148a25dea3d31c7"
     },
     {
       "archivo": "keras_pre.part02",
-      "bytes": 500000,
-      "sha256": "d83d90d4eb2cfa603d041303b42eb7c7ac869e2c501154d15213b8c0774d3588"
+      "bytes": 350000,
+      "sha256": "df77be0c12d53f0f6f21012e06ae4cbee1d5019df0eccca6bef99a2afaaee04a"
     },
     {
       "archivo": "keras_pre.part03",
-      "bytes": 500000,
-      "sha256": "900fbf59646c7dcbdeeb173fb470ee8e94424680dea1c3a0c11518c1cbb8b82d"
+      "bytes": 350000,
+      "sha256": "8249f384353570a97e99eb73b71617e3169348469b6894f1314ec0bafa3a79cf"
     },
     {
       "archivo": "keras_pre.part04",
-      "bytes": 500000,
-      "sha256": "656f28ab604f9c96c727666ace54ee3a2ac809746111c49fc30851e789be6ea7"
+      "bytes": 350000,
+      "sha256": "b82a85441ec890d6aa6d2b9ae89afea237f48b4dd4159ef24d6685b16973e1a0"
     },
     {
       "archivo": "keras_pre.part05",
-      "bytes": 500000,
-      "sha256": "79b4cbd6e54625c27666d16f6a18f6084dc032bb4aa7f073974e3c84df191557"
+      "bytes": 350000,
+      "sha256": "b2faca550d3123d3ddd8d86f8803900e8301f4278937a14bb600d6c76edb5519"
     },
     {
       "archivo": "keras_pre.part06",
-      "bytes": 500000,
-      "sha256": "657b1e9e05ff179a6d71131080d807faa04c8bcf00061c13f81539f5f2926384"
+      "bytes": 350000,
+      "sha256": "c02181062ca53fd1b1e51663fa7f5c25e5d98d235827ff601bc513eeb73a29c5"
     },
     {
       "archivo": "keras_pre.part07",
-      "bytes": 451403,
-      "sha256": "3a620af8d2820796a65ed5ed2e0684a2b021a4e6448217a3f29f8087507d341e"
+      "bytes": 350000,
+      "sha256": "28eadfed7f3a7ab3989b3b42298a6fee718cb4f819c5f9cc1dc969d162bb125f"
+    },
+    {
+      "archivo": "keras_pre.part08",
+      "bytes": 350000,
+      "sha256": "99618019d3d27b1b2cd73b0dbc81a0b1b650ddab34d00fd8130b45859138b6a7"
+    },
+    {
+      "archivo": "keras_pre.part09",
+      "bytes": 350000,
+      "sha256": "61d9d13b2d7b285fb5403309d72ce4f36be3f0115eacf8fea1cb3b3644cf7675"
+    },
+    {
+      "archivo": "keras_pre.part10",
+      "bytes": 350000,
+      "sha256": "a083f43b7ded19272e1307dcd5913b406f07ce3a98ab3cda533f9184f83bebe6"
+    },
+    {
+      "archivo": "keras_pre.part11",
+      "bytes": 350000,
+      "sha256": "a88b0d893cf5c9264f4afbf83aecbe5098eea3c0a2e144d27b01ad57f0779c1b"
+    },
+    {
+      "archivo": "keras_pre.part12",
+      "bytes": 350000,
+      "sha256": "3430ae2c7e2cfa3d583dd6f5638c86bfb7c372700ddf13595611f3478527807e"
+    },
+    {
+      "archivo": "keras_pre.part13",
+      "bytes": 350000,
+      "sha256": "df7d8fd62d2051460c145bb6eb79e12d122358669e33430c6fd221aed91a8a5f"
+    },
+    {
+      "archivo": "keras_pre.part14",
+      "bytes": 350000,
+      "sha256": "b4666bfa8ff227877dc78e5c62cd01d151b6f0dd09653c83e80e073de33b3c2a"
+    },
+    {
+      "archivo": "keras_pre.part15",
+      "bytes": 350000,
+      "sha256": "67248663179d81f2f09c81f288d8cdc9a09221f3825c53e49edeb0b9b55e9017"
+    },
+    {
+      "archivo": "keras_pre.part16",
+      "bytes": 350000,
+      "sha256": "c38519cf701fbf15ae36d4631d11fdfbc7fb2683da69ea7d418aad278c68ec22"
+    },
+    {
+      "archivo": "keras_pre.part17",
+      "bytes": 350000,
+      "sha256": "c5fcc6805fb254d220efc473ee1a4aa927bfc072a568a4f481eaf8b73dc86a76"
+    },
+    {
+      "archivo": "keras_pre.part18",
+      "bytes": 350000,
+      "sha256": "bf221b843f7a0abb4de261a7ca4645a997cb817af5aa536bb6871d0c03ee940c"
+    },
+    {
+      "archivo": "keras_pre.part19",
+      "bytes": 350000,
+      "sha256": "7cef54763d0ae6becfeffc927b0bca4a92288a8ccd9d65104cd6d4cab02e2bb7"
+    },
+    {
+      "archivo": "keras_pre.part20",
+      "bytes": 350000,
+      "sha256": "2e349f02af9e97d6be4017d7cae229a711721175b8a345baec1fc2bdb1a40405"
+    },
+    {
+      "archivo": "keras_pre.part21",
+      "bytes": 350000,
+      "sha256": "31d370e538fd63c02668506195a6f2682d22e5562cb64247271968ff746954b2"
+    },
+    {
+      "archivo": "keras_pre.part22",
+      "bytes": 350000,
+      "sha256": "9252842dc1ead3939a78bd8e4cec59af45b0113b243e398a23868e289e695a3e"
+    },
+    {
+      "archivo": "keras_pre.part23",
+      "bytes": 350000,
+      "sha256": "e4ad991bb2afbf5efcd971213be754a975e250848f56fd0120fda12e84d0aed0"
+    },
+    {
+      "archivo": "keras_pre.part24",
+      "bytes": 350000,
+      "sha256": "3d732b128fcb665972db1b98ffbee2a144225125a9a8852c9cadeeb9d9dc759d"
+    },
+    {
+      "archivo": "keras_pre.part25",
+      "bytes": 350000,
+      "sha256": "a295cba2b015e6e91b9c1e4b0d190560bb4da98a3519fc748c34cccb78760724"
+    },
+    {
+      "archivo": "keras_pre.part26",
+      "bytes": 350000,
+      "sha256": "13cf4b143de2d0816f2253890c9e825c233fd2ceb08ac6f0a3c5637b5a670540"
+    },
+    {
+      "archivo": "keras_pre.part27",
+      "bytes": 350000,
+      "sha256": "a09b168fb2306fc641a6105f28b0a47b6dbfbc603e9a0a085e438b741b354883"
+    },
+    {
+      "archivo": "keras_pre.part28",
+      "bytes": 350000,
+      "sha256": "2241cd0f0b0302c832648dfde6583dbe10b26c5ba87a0605dd575a5659af49ef"
+    },
+    {
+      "archivo": "keras_pre.part29",
+      "bytes": 350000,
+      "sha256": "23d5f8d0c84b6705ec91bdd98c630bdb49b7dd310390773842023573b3d64904"
+    },
+    {
+      "archivo": "keras_pre.part30",
+      "bytes": 350000,
+      "sha256": "299e2a36795e5d1e444284918379ba5c7c624ac7811f930c21640db5061ca082"
+    },
+    {
+      "archivo": "keras_pre.part31",
+      "bytes": 350000,
+      "sha256": "d9790f9c84e4de2be4baadf99577523603a683068fcd5a677f7084072a7a6def"
+    },
+    {
+      "archivo": "keras_pre.part32",
+      "bytes": 350000,
+      "sha256": "eed6dbd1f53c02b060d404dadd42aec89ac59c71fa36fcc424b05cafa01946b3"
+    },
+    {
+      "archivo": "keras_pre.part33",
+      "bytes": 350000,
+      "sha256": "8cb92aaee395bad0f441a40725b448ee1b0444cfe599ffb69989879f554cff96"
+    },
+    {
+      "archivo": "keras_pre.part34",
+      "bytes": 30058,
+      "sha256": "e09823037097799b54e5933478f6beb7c9ece33fa141e97b7b00527bfaa7bb77"
     }
   ],
-  "preparacion_sha256": "d0f787138d5820d47002857e3d3638bf49385b09228708d7dbc925035ce9316a",
-  "red_sha256": "02c8a1878873de415db9049ff942ede1002db9c36c7af213ca4c67b0fcafc9c1"
+  "preparacion_sha256": "05884398dff0af77fdfd98940cfcd197404bd1cd62592f1dc2ca8c6a483d02f8",
+  "red_sha256": "df9ca7d1088dc41f2b285f60552ab0a6e984307f295ff33c43b9a7dee8a9b31d"
 }
