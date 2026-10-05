@@ -1,19 +1,24 @@
-# Streamlit · Problema 2 · Equipo 6
+# Clasificación de reseñas · Equipo 6 · Streamlit
 
-## Publicar sin programar
-1. Descomprime el ZIP.
-2. Crea una cuenta en https://github.com y un repositorio llamado `resenas-equipo6`.
-3. En el repositorio selecciona Add file → Upload files. Sube **el contenido** de la carpeta `streamlit_equipo6`, no el ZIP. Conserva la carpeta `datos`. app.py y requirements.txt deben quedar en la raíz.
-4. Abre https://share.streamlit.io e inicia sesión con GitHub.
-5. Pulsa Create app, selecciona tu repositorio, rama main y archivo app.py. En Advanced settings selecciona Python 3.11.
-6. Pulsa Deploy. Cuando termine, tendrás una URL para compartir.
+Aplicación: https://utpmachinelearning.streamlit.app/
 
-Los tres archivos .joblib ya contienen modelos entrenados. 
+Clasifica reseñas en limpieza, ruido, ubicación, anfitrión y precio. Incluye análisis individual y CSV, comparación de modelos, guía de uso y una sección **Red Keras** con arquitectura, curvas y evidencia del control del sobreajuste.
 
-Documentación oficial: https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy
+## Estado de la publicación
 
-## Ejecutar en tu Mac / PyCharm
-En la terminal, dentro de esta carpeta:
+El código implementa Nivel 2 y los resultados del entrenamiento están documentados. El archivo Keras y su preparador todavía no están en este repositorio. La interfaz conserva los clásicos y documenta la red entrenada en la pestaña Red Keras. Para reproducirla con tu Excel, utiliza los comandos de entrenamiento.
+
+## Nivel 2 — Keras obligatorio
+
+La red es un MLP real en **tf.keras**. TF-IDF se reduce con **TruncatedSVD a 64 componentes**, se agrega la longitud y se escalan las 65 entradas. Arquitectura seleccionada: Dense(64, ReLU) → Dropout(0.20) → Dense(5, sigmoid). Optimizador Adam (0.001), binary_crossentropy, batch 128. EarlyStopping supervisa val_loss, con paciencia 6, min_delta 0.0001 y restore_best_weights=True.
+
+Se ejecutaron 74 de 100 épocas y se restauraron los pesos de la época 68. Una ablación sin dropout ni early stopping mostró menor pérdida de entrenamiento y mayor pérdida de validación. Los controles redujeron 13.1% la pérdida de validación en esta partición. Esto no garantiza un F1 mayor: se documentan ambas métricas sin ocultar diferencias.
+
+Lee [NIVEL_2_KERAS.md](NIVEL_2_KERAS.md) para la arquitectura completa, decisiones, curvas, comparación, límites y pasos de reproducción. La condición de XGBoost/LightGBM es para datos tabulares o series de tiempo y no aplica a este problema de texto.
+
+## Ejecutar
+
+Con Python 3.11 o 3.12, en la carpeta del proyecto:
 
 ```bash
 python3 -m venv .venv
@@ -22,39 +27,53 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
+Los clásicos ya están disponibles; abrir la aplicación no los vuelve a entrenar. La red Keras se entrenó y evaluó, pero la publicación de su archivo y preparador está pendiente de autorización específica requerida por la revisión automática. El código, las curvas y las métricas Keras sí están incluidos. No necesitas claves API.
+
+## Publicar en Streamlit Community Cloud
+
+En https://share.streamlit.io selecciona el repositorio `nickymarie090490/utpmachinelearnig`, rama `main` y archivo `app.py`. Usa Python 3.11 o 3.12. requirements.txt incluye TensorFlow CPU y Keras. La instalación inicial puede tardar más que la versión anterior.
+
 ## Archivos
-- app.py: interfaz con reseña individual, carga CSV, resultados y explicación.
-- texto.py: limpieza, stemming español, reglas y TF-IDF, adaptados del notebook.
-- entrenar.py: regresión logística, SVM lineal y red neuronal MLP.
-- preparar_excel.py: reconstruye las muestras desde Etiquetados.xlsx.
-- datos/: métricas agregadas y metodología de esta ejecución. Las muestras de reseñas no se publican en GitHub.
-- *.joblib: modelos entrenados con sus transformaciones.
 
-## Reproducir
-El repositorio público no incluye muestra_manual.csv ni entrenamiento_debil.csv.gz. Para reconstruirlas utiliza tu Excel original siguiendo los comandos siguientes.
+- `app.py`: interfaz con seis pestañas, incluida guía y Nivel 2.
+- `texto.py`: limpieza, reglas y preparación TF-IDF/SVD ajustada en entrenamiento.
+- `keras_red.py`: carga segura por integridad e inferencia de la red Keras.
+- `entrenar.py`: clásicos, dos candidatos Keras, early stopping, ablación y evaluación.
+- `generar_informe.py`: genera informe y figura desde resultados reales.
+- `preparar_excel.py`: reconstruye las muestras del Excel original.
+- `LogisticRegression.joblib`, `LinearSVC.joblib`: modelos clásicos y sus transformaciones.
+- `modelos/red_keras.keras`: red con pesos restaurados por early stopping.
+- `modelos/keras_pre.part*`, `keras_manifest.json`: preparador comprimido en partes, con hashes de integridad. Mantén todos los archivos.
+- `datos/`: métricas, configuración y curvas. Las reseñas originales no se publican.
+- `NIVEL_2_KERAS.md`: documentación de cumplimiento y sobreajuste.
 
-El Excel original no está dentro del ZIP para mantener pequeño el proyecto. Copia Etiquetados.xlsx junto a app.py y ejecuta:
+## Reproducir el experimento
+
+Copia tu Excel original `Etiquetados.xlsx` junto a app.py y ejecuta:
 
 ```bash
 python preparar_excel.py
 python entrenar.py
 ```
 
-Se toman todas las filas con cinco etiquetas binarias completas como muestra humana; se conserva su etiquetado. Se recorren las 690 112 reseñas; se excluyen alojamientos humanos, copias de sus textos, textos vacíos y duplicados normalizados. Se seleccionan 25 000 reseñas con muestreo de reservorio y se crean etiquetas automáticas con las reglas originales.
+`python entrenar.py --solo-red` conserva los clásicos y recalcula la parte neuronal. `python generar_informe.py` regenera la documentación y la figura desde resultados guardados.
 
-Se reserva 20% de alojamientos automáticos para validación. Los clásicos ajustan C y unigramas/bigramas mediante GroupKFold de tres pliegues. Dos arquitecturas MLP (64 y 128/64) se seleccionan con la validación automática fija; no con las etiquetas humanas. Las transformaciones se ajustan dentro del entrenamiento. Las etiquetas humanas se usan solo al final.
+Se recorren 690 112 reseñas, se conserva la muestra humana de 100 filas y se excluyen sus alojamientos y copias de sus textos. Se seleccionan 25 000 reseñas con reglas automáticas. Entrenamiento: 19 931; validación: 5 069; grupos sin solapamiento. La red compara dos arquitecturas con igual máximo de épocas y callback. Los clásicos ajustan C y unigramas/bigramas con GroupKFold de tres pliegues. Las etiquetas humanas se consultan solo al final.
 
-## Diferencias con Problema_2.ipynb
-Se conserva el planteamiento multietiqueta y la separación por alojamiento. La red usa scikit-learn para simplificar el despliegue; no es el modelo TensorFlow original, no tiene dropout ni early stopping y usa 70 iteraciones. Su selección se hace con una partición agrupada, no con CV de tres pliegues. Las métricas incluidas pertenecen a esta ejecución y no son las del notebook. Esta aplicación no sustituye todos los análisis académicos del notebook (curvas, intervalos, idiomas e importancia por permutación).
+## Resultados actuales
 
-Si la red muestra advertencia de convergencia, significa que alcanzó el límite de iteraciones; consulta arquitecturas.csv. No se garantiza convergencia. Las puntuaciones no están calibradas. Detectar temas no identifica sentimiento ni quejas. La muestra manual es pequeña y dirigida. No se necesita que la red sea el mejor modelo: se muestran los resultados reales.
+| Modelo | Macro F1 humano | Micro F1 humano | Coincidencia completa |
+|---|---:|---:|---:|
+| Regresión logística | 0.912 | 0.910 | 72% |
+| SVM lineal | 0.926 | 0.923 | 76% |
+| Red Keras | 0.635 | 0.750 | 47% |
 
-Los modelos joblib solo deben cargarse desde este proyecto de confianza; la aplicación no acepta modelos subidos por visitantes. El ZIP no incluye las columnas de nombres ni identificadores de los autores de reseñas. Los textos originales pueden mencionar personas; revísalos antes de publicar un repositorio público.
+La muestra humana es pequeña y dirigida; no garantiza generalización poblacional. Las etiquetas automáticas son imperfectas. Detectar un tema no determina si el comentario es positivo o negativo. Las puntuaciones no están calibradas.
 
-## Verificación de esta entrega
-- Regresión logística: Macro F1 manual 0.9115.
-- SVM lineal: Macro F1 manual 0.9261.
-- Red neuronal: Macro F1 manual 0.7115.
-- Las dos arquitecturas MLP alcanzaron 70 iteraciones con advertencia de convergencia. La seleccionada fue (128, 64).
-- Se comprobó la separación de alojamientos, ausencia de textos humanos en entrenamiento y de textos normalizados duplicados.
-- Se ejecutó Streamlit AppTest: carga, cambio de modelo y análisis individual sin excepciones para los tres modelos.
+## Relación con el notebook
+
+Se conserva el planteamiento multietiqueta y la separación por alojamiento. Esta versión vuelve a usar Keras, SVD, dropout y early stopping, pero sus resultados pertenecen a esta ejecución; no son los del notebook original. La app no sustituye los demás análisis académicos del notebook (idiomas, intervalos, importancia por permutación o curvas de tamaño de muestra). La implementación previa de MLPClassifier fue retirada de GitHub.
+
+## Verificación
+
+Se comprobó carga del preparador y la red guardada, integridad SHA-256, cinco salidas, activación real de early stopping, curvas de las épocas ejecutadas, separación de alojamientos e integración Streamlit de los tres modelos. Los modelos se cargan exclusivamente desde el repositorio de confianza; los visitantes no pueden subir archivos de modelos.

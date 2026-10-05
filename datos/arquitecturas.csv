@@ -1,3 +1,3 @@
-capas,F1 validación automática,advertencia_convergencia
-"(64,)",0.6202238395226447,True
-"(128, 64)",0.6311536877080981,True
+capas,dropout,F1 validación automática,epocas_ejecutadas,mejor_epoca,early_stopping_activo,parada_anticipada,val_loss_restaurada
+"(64,)",0.2,0.6115732190884058,74,68,True,True,0.16051035579372075
+"(128, 64)",0.3,0.6113115173287016,39,33,True,True,0.16050362059535472
