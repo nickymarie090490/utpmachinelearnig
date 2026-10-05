@@ -1,0 +1,10 @@
+{
+  "train": 19931,
+  "validacion": 5069,
+  "test_humano": 100,
+  "MLP": "scikit-learn, distinta de la implementaci\u00f3n TensorFlow del notebook",
+  "arquitectura": [
+    128,
+    64
+  ]
+}
