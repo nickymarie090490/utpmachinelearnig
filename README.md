@@ -8,7 +8,7 @@
 5. Pulsa Create app, selecciona tu repositorio, rama main y archivo app.py. En Advanced settings selecciona Python 3.11.
 6. Pulsa Deploy. Cuando termine, tendrás una URL para compartir.
 
-Los tres archivos .joblib ya contienen modelos entrenados. No hay que abrir Colab ni entrenar en la nube. No necesitas API keys ni Google AI Studio.
+Los tres archivos .joblib ya contienen modelos entrenados. 
 
 Documentación oficial: https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy
 
