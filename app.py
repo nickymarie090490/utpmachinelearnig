@@ -93,14 +93,16 @@ with t1:
         columns = st.columns(5)
         for j, (tema, val) in enumerate(zip(TEMAS, pred)):
             with columns[j], st.container(border=True):
-                st.markdown('### '+ICONOS[tema]+' '+NOMBRES[tema])
+                st.markdown(ICONOS[tema])
+                st.markdown('**'+NOMBRES[tema]+'**')
                 if val:
                     st.markdown('**● Detectado**')
                 else:
                     st.caption('○ No detectado')
                 if probs is not None:
                     st.progress(float(np.clip(probs[j], 0, 1)))
-                    st.caption(f'Puntuación: {probs[j]:.0%}')
+                    score_label = '<0,1%' if probs[j] < .001 else '>99,9%' if probs[j] > .999 else f'{probs[j]*100:.1f}%'.replace('.', ',')
+                    st.caption('Puntuación: '+score_label)
         st.markdown('**Cómo leerlo:** “Detectado” indica que el modelo considera que la reseña menciona ese tema. Puede ser un elogio, una crítica o una descripción.')
         if probs is not None:
             st.caption('La puntuación refleja la salida del modelo. Desde 50% se marca “Detectado”. No es una certeza comprobada ni la precisión del modelo; las puntuaciones no están calibradas.')
